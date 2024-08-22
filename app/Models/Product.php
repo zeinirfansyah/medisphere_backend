@@ -15,7 +15,7 @@ class Product extends Model
         'uid' => 'string',
     ];
     
-    public function category()
+    public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
@@ -30,12 +30,12 @@ class Product extends Model
         return $this->belongsTo(Discount::class, 'discount_id');
     }
 
-    public function purchase_detail()
+    public function purchaseDetail()
     {
         return $this->hasMany(PurchaseDetail::class, 'product_id');
     }
 
-    public function order_detail()
+    public function orderDetail()
     {
         return $this->hasMany(OrderDetail::class, 'product_id');
     }

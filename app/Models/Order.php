@@ -15,7 +15,7 @@ class Order extends Model
         'uid' => 'string',
     ];
 
-    public function order_status()
+    public function orderStatus()
     {
         return $this->belongsTo(OrderStatus::class, 'order_status_id');
     }
@@ -25,12 +25,12 @@ class Order extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function order_details()
+    public function orderDetail()
     {
         return $this->hasMany(OrderDetail::class, 'order_id');
     }
 
-    public function payments()
+    public function payment()
     {
         return $this->belongsTo(Payment::class, 'order_id');
     }

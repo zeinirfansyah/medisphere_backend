@@ -15,7 +15,7 @@ class Supplier extends Model
         'uid' => 'string',
     ];
 
-    public function purchases()
+    public function purchase()
     {
         return $this->hasMany(Purchase::class, 'supplier_id');
     }
