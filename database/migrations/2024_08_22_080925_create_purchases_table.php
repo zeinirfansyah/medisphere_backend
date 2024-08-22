@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('purchases', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();;
             $table->string('purchase_date');
             $table->string('purchase_tax');
             $table->string('purchase_total');
             $table->timestamps();
-            $table->string('supplier_id');
-            $table->string('purchase_status_id');
-            $table->string('user_id');
+            $table->uuid('supplier_id');
+            $table->uuid('purchase_status_id');
+            $table->uuid('user_id');
 
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('purchase_status_id')->references('id')->on('purchase_statuses');

@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();;
             $table->string('order_date');
             $table->string('order_tax');
             $table->string('order_total');
             $table->timestamps();
-            $table->string('order_status_id');
-            $table->string('user_id');
+            $table->uuid('order_status_id');
+            $table->uuid('user_id');
 
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
             $table->foreign('user_id')->references('id')->on('users');
