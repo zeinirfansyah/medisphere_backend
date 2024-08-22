@@ -11,6 +11,10 @@ class Purchase extends Model
 
     protected $fillable = ['purchase_date', 'purchase_tax', 'purchase_total', 'supplier_id', 'purchase_status_id', 'user_id', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
+    
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');

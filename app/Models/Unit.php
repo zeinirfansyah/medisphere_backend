@@ -11,6 +11,10 @@ class Unit extends Model
 
     protected $fillable = ['unit_name', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
+    
     public function products()
     {
         return $this->hasMany(Product::class, 'unit_id');

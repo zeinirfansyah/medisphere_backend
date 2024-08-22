@@ -11,6 +11,9 @@ class Discount extends Model
 
     protected $fillable = ['discount_name', 'discount_description', 'discount_rate', 'discount_start_date', 'discount_end_date', 'discount_status', 'product_id', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function product()
     {

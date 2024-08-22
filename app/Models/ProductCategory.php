@@ -11,6 +11,10 @@ class ProductCategory extends Model
 
     protected $fillable = ['category_name', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
+    
     public function products()
     {
         return $this->hasMany(Product::class, 'product_category_id');

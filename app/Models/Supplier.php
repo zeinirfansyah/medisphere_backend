@@ -11,6 +11,9 @@ class Supplier extends Model
 
     protected $fillable = ['supplier_name', 'supplier_contact', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function purchases()
     {

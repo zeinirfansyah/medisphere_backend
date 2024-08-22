@@ -11,6 +11,10 @@ class Product extends Model
 
     protected $fillable = ['product_name', 'product_description', 'original_price', 'product_price', 'product_stock', 'product_image', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
+    
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id');

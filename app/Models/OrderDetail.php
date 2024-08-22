@@ -11,6 +11,9 @@ class OrderDetail extends Model
 
     protected $fillable = ['order_id', 'product_id', 'quantity', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function order()
     {

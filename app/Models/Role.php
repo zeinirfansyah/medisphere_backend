@@ -11,6 +11,10 @@ class Role extends Model
 
     protected $fillable = ['role_name', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
+    
     public function users()
     {
         return $this->hasMany(User::class);

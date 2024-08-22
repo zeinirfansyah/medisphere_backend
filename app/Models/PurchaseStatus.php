@@ -11,6 +11,9 @@ class PurchaseStatus extends Model
 
     protected $fillable = ['purchase_status_name', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function purchases()
     {

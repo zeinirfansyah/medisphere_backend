@@ -11,6 +11,9 @@ class Order extends Model
 
     protected $fillable = ['order_date', 'order_total', 'order_status_id', 'user_id', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function order_status()
     {

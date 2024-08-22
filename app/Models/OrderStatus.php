@@ -11,6 +11,9 @@ class OrderStatus extends Model
 
     protected $fillable = ['order_status_name', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function orders()
     {

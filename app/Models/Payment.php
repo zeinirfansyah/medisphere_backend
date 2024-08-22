@@ -11,6 +11,9 @@ class Payment extends Model
 
     protected $fillable = ['payment_date', 'payment_amount', 'payment_method', 'order_id', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
 
     public function order()
     {

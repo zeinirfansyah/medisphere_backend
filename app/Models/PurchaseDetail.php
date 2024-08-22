@@ -11,6 +11,10 @@ class PurchaseDetail extends Model
 
     protected $fillable = ['quantity', 'purchase_id', 'product_id', 'uid'];
 
+    protected $casts = [
+        'uid' => 'string',
+    ];
+    
     public function purchase()
     {
         return $this->belongsTo(Purchase::class, 'purchase_id');
