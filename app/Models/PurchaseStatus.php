@@ -9,7 +9,7 @@ class PurchaseStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['purchase_status_name'];
+    protected $fillable = ['purchase_status_name', 'uid'];
 
 
     public function purchases()

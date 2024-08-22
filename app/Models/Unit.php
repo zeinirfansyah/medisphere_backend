@@ -9,7 +9,7 @@ class Unit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['unit_name'];
+    protected $fillable = ['unit_name', 'uid'];
 
     public function products()
     {

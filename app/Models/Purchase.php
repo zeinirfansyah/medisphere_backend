@@ -9,7 +9,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['purchase_date', 'purchase_tax', 'purchase_total', 'supplier_id', 'purchase_status_id', 'user_id'];
+    protected $fillable = ['purchase_date', 'purchase_tax', 'purchase_total', 'supplier_id', 'purchase_status_id', 'user_id', 'uid'];
 
     public function supplier()
     {

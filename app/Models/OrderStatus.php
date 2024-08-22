@@ -9,7 +9,7 @@ class OrderStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_status_name'];
+    protected $fillable = ['order_status_name', 'uid'];
 
 
     public function orders()
