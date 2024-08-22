@@ -56,17 +56,17 @@ class User extends Authenticatable
         ];
     }
 
-    public function roles()
+    public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    public function purchases()
+    public function purchase()
     {
         return $this->hasMany(Purchase::class, 'user_id');
     }
 
-    public function orders()
+    public function order()
     {
         return $this->hasMany(Order::class, 'user_id');
     }

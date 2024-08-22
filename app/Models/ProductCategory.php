@@ -15,7 +15,7 @@ class ProductCategory extends Model
         'uid' => 'string',
     ];
     
-    public function products()
+    public function product()
     {
         return $this->hasMany(Product::class, 'product_category_id');
     }

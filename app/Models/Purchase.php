@@ -20,7 +20,7 @@ class Purchase extends Model
         return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
-    public function purchase_status()
+    public function purchaseStatus()
     {
         return $this->belongsTo(PurchaseStatus::class, 'purchase_status_id');
     }
@@ -30,7 +30,7 @@ class Purchase extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function purchase_details()
+    public function purchaseDetail()
     {
         return $this->hasMany(PurchaseDetail::class, 'purchase_id');
     }

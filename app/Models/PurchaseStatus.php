@@ -15,7 +15,7 @@ class PurchaseStatus extends Model
         'uid' => 'string',
     ];
 
-    public function purchases()
+    public function purchase()
     {
         return $this->hasMany(Purchase::class, 'purchase_status_id');
     }
