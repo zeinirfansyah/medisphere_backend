@@ -32,7 +32,39 @@ class AuthController extends Controller
         $token = $user->createToken($request->username)->plainTextToken;
 
         $response = [
-            'user' => $user,
+            'user' => "$user->username registered successfully",
+            'token' => $token
+        ];
+
+        return response($response, 201);
+    }
+
+    public function login(Request $request)
+    {
+        $fields = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        $user = User::where('username', $fields['username'])->first();
+
+        if (!$user) {
+            return response([
+                'message' => 'Username is incorrect.'
+            ], 401);
+        }
+
+        if (!Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Password is incorrect.'
+            ], 401);
+        }
+
+
+        $token = $user->createToken($request->username)->plainTextToken;
+
+        $response = [
+            'user' => "$user->username already logged in",
             'token' => $token
         ];
 
