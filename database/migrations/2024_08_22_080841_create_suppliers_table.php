@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,7 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('suppliers', function (Blueprint $table) {
-            $table->uuid('id')->primary();;
+            $table->id();
+            $table->uuid('uid')->default(DB::raw('(UUID())'));
             $table->string('supplier_name');
             $table->string('supplier_contact');
             $table->timestamps();

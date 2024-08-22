@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -12,7 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('discounts', function (Blueprint $table) {
-            $table->uuid('id')->primary();;
+            $table->id();
+            $table->uuid('uid')->default(DB::raw('(UUID())'));
             $table->string('discount_name');
             $table->string('discount_description')->nullable();
             $table->string('discount_rate');
@@ -20,7 +22,7 @@ return new class extends Migration
             $table->string('discount_end_date')->nullable();
             $table->enum('discount_status', ['active', 'inactive'])->default('inactive');
             $table->timestamps();
-            $table->uuid('product_id')->nullable();
+            $table->bigInteger('product_id')->unsigned();
 
             $table->foreign('product_id')->references('id')->on('products');
         });
