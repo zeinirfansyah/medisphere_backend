@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RoleAccess
 {
@@ -17,10 +19,16 @@ class RoleAccess
     {
         $user = Auth::user();
 
-        if (!$user || !in_array($user->role->role_name, $roles)) {
-            abort(403, 'Unauthorized');
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        return $next($request);
+        foreach ($roles as $role) {
+            if ($user->role && $user->role->role_name === $role) {
+                return $next($request);
+            }
+        }
+
+        return response()->json(['message' => 'Unauthorized'], 403);
     }
 }
