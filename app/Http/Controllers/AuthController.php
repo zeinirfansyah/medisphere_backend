@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -14,10 +15,9 @@ class AuthController extends Controller
 
         $fields = $request->validate([
             'fullname' => 'required|string',
-            'username' => 'required|string|unique:users,username',
+            'username' => 'required|string|unique:users,username|max:24|min:3|regex:/^[a-z0-9_]+$/|',
             'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password' => 'required|string|confirmed|min:8',
         ]);
 
         $user = User::create([
@@ -28,7 +28,6 @@ class AuthController extends Controller
             'role_id' => $defaultRole->id
         ]);
 
-        
 
         $token = $user->createToken($request->username)->plainTextToken;
 
