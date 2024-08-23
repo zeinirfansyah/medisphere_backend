@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum', 'role:superadmin'])->group(function () {
     Route::prefix('role')->group(function () {
         Route::get('/', [RoleController::class, 'index']);
+        Route::get('/{role}', [RoleController::class, 'show']);
     });
 });
 
