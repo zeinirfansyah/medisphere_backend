@@ -9,14 +9,16 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['supplier_name', 'supplier_contact', 'uid'];
+    protected $fillable = ['uid', 'supplier_name', 'supplier_contact_info', 'supplier_address'];
+
 
     protected $casts = [
         'uid' => 'string',
     ];
 
-    public function purchase()
+    public function supplyTransaction()
     {
-        return $this->hasMany(Purchase::class, 'supplier_id');
+        return $this->hasMany(SupplyTransaction::class);
     }
+
 }

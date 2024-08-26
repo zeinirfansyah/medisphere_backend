@@ -9,29 +9,42 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_date', 'order_total', 'order_status_id', 'user_id', 'uid'];
+    protected $fillable = [
+        'order_date',
+        'tax',
+        'total_price',
+        'user_id',
+        'order_status_id',
+        'uid'
+    ];
 
     protected $casts = [
         'uid' => 'string',
     ];
 
-    public function orderStatus()
-    {
-        return $this->belongsTo(OrderStatus::class, 'order_status_id');
-    }
-
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function orderDetail()
+    public function order_status()
     {
-        return $this->hasMany(OrderDetail::class, 'order_id');
+        return $this->belongsTo(OrderStatus::class);
     }
+
+    public function shipping()
+    {
+        return $this->hasMany(Shipping::class);
+    }
+
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
 
     public function payment()
     {
-        return $this->belongsTo(Payment::class, 'order_id');
+        return $this->hasMany(Payment::class);
     }
 }

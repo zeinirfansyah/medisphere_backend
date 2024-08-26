@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderStatus extends Model
+class ShippingStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_status_name', 'uid'];
+    protected $fillable = ['shipping_status_name', 'uid'];
 
     protected $casts = [
         'uid' => 'string',
     ];
 
-    public function order()
+
+    public function shipping()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Shipping::class);
     }
 }

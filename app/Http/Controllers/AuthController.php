@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        if (auth('sanctum')->check()) {
+            return response(['message' => 'Already authenticated, please logout first.'], 403);
+        }
+
         $defaultRole = Role::where('role_name', 'customer')->firstorFail();
 
         $fields = $request->validate([
@@ -41,6 +46,10 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        if (auth('sanctum')->check()) {
+            return response(['message' => 'Already authenticated, please logout first.'], 403);
+        }
+
         $fields = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string'

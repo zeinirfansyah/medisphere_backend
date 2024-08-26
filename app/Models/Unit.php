@@ -14,9 +14,9 @@ class Unit extends Model
     protected $casts = [
         'uid' => 'string',
     ];
-    
+
     public function product()
     {
-        return $this->hasMany(Product::class, 'unit_id');
+        return $this->hasMany(Product::class);
     }
 }
