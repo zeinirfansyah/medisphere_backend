@@ -15,13 +15,8 @@ class ProductCategory extends Model
         'uid' => 'string',
     ];
 
-    public function products()
+    public function product()
     {
         return $this->hasMany(Product::class);
-    }
-
-    public function units()
-    {
-        return $this->hasMany(Unit::class);
     }
 }

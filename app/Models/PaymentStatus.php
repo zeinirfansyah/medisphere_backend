@@ -5,18 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Unit extends Model
+class PaymentStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['unit_name', 'uid'];
+
+    protected $fillable = ['payment_status_name', 'uid'];
+
 
     protected $casts = [
         'uid' => 'string',
     ];
 
-    public function product()
+
+    public function payment()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Payment::class);
     }
 }

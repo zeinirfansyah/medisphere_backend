@@ -36,4 +36,16 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class, 'product_id');
     }
+
+
+    public function supplyTransactionItem()
+    {
+        return $this->hasMany(SupplyTransactionItem::class, 'product_id');
+    }
+
+
+    public function orderItem()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id');
+    }
 }
