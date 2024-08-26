@@ -19,8 +19,8 @@ return new class extends Migration
             $table->float('tax');
             $table->integer('total_amount');
             $table->timestamps();
-            $table->string('supplier_id');
-            $table->string('user_id');
+            $table->bigInteger('supplier_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
 
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('user_id')->references('id')->on('users');

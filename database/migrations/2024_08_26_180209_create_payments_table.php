@@ -19,8 +19,8 @@ return new class extends Migration
             $table->float('amount');
             $table->string('payment_method');
             $table->float('transaction_tax');
-            $table->string('payment_status_id');
-            $table->string('order_id');
+            $table->bigInteger('payment_status_id')->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('payment_status_id')->references('id')->on('payment_statuses');

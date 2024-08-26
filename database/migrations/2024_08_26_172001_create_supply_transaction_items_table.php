@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->float('price');
             $table->timestamps();
-            $table->string('supply_transaction_id');
-            $table->string('product_id');
+            $table->bigInteger('supply_transaction_id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();
 
 
             $table->foreign('supply_transaction_id')->references('id')->on('supply_transactions');
