@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -16,32 +15,38 @@ class AuthController extends Controller
             return response(['message' => 'Already authenticated, please logout first.'], 403);
         }
 
-        $defaultRole = Role::where('role_name', 'customer')->firstorFail();
+        try {
+            $role = Role::where('role_name', 'customer')->first();
 
-        $fields = $request->validate([
-            'fullname' => 'required|string',
-            'username' => 'required|string|unique:users,username|max:24|min:3|regex:/^[a-z0-9_]+$/|',
-            'email' => 'required|string|unique:users,email',
-            'password' => 'required|string|confirmed|min:8',
-        ]);
+            if (!$role) {
+                return response(['message' => 'Customer role not found.'], 404);
+            }
 
-        $user = User::create([
-            'fullname' => $fields['fullname'],
-            'username' => $fields['username'],
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password']),
-            'role_id' => $defaultRole->id
-        ]);
+            $defaultRole = Role::where('role_name', 'customer')->firstorFail();
 
+            $fields = $request->validate([
+                'fullname' => 'required|string',
+                'username' => 'required|string|unique:users,username|max:24|min:3|regex:/^[a-z0-9_]+$/|',
+                'email' => 'required|string|unique:users,email',
+                'password' => 'required|string|confirmed|min:8',
+            ]);
 
-        $token = $user->createToken($request->username)->plainTextToken;
+            $user = User::create([
+                'fullname' => $fields['fullname'],
+                'username' => $fields['username'],
+                'email' => $fields['email'],
+                'password' => bcrypt($fields['password']),
+                'role_id' => $defaultRole->id
+            ]);
 
-        $response = [
-            'user' => "$user->username registered successfully",
-            'token' => $token
-        ];
+            $response = [
+                'user' => "$user->username registered successfully"
+            ];
 
-        return response($response, 201);
+            return response($response, 201);
+        } catch (\Exception $e) {
+            return response(['message' => $e->getMessage()], 500);
+        }
     }
 
     public function login(Request $request)
