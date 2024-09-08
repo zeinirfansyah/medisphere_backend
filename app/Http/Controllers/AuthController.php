@@ -55,35 +55,40 @@ class AuthController extends Controller
             return response(['message' => 'Already authenticated, please logout first.'], 403);
         }
 
-        $fields = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string'
-        ]);
+        try {
+            $fields = $request->validate([
+                'username' => 'required|string',
+                'password' => 'required|string'
+            ]);
 
-        $user = User::where('username', $fields['username'])->first();
+            $user = User::where('username', $fields['username'])->first();
 
-        if (!$user) {
-            return response([
-                'message' => 'Username is incorrect.'
-            ], 401);
+            if (!$user) {
+                return response([
+                    'message' => 'Username is incorrect.'
+                ], 401);
+            }
+
+            if (!Hash::check($fields['password'], $user->password)) {
+                return response([
+                    'message' => 'Password is incorrect.'
+                ], 401);
+            }
+
+
+            $token = $user->createToken($request->username)->plainTextToken;
+
+            $response = [
+                'user' => "$user->username already logged in",
+                'token' => $token
+            ];
+
+            return response($response, 201);
+        } catch (\Exception $e) {
+            return response(['message' => $e->getMessage()], 500);
         }
-
-        if (!Hash::check($fields['password'], $user->password)) {
-            return response([
-                'message' => 'Password is incorrect.'
-            ], 401);
-        }
-
-
-        $token = $user->createToken($request->username)->plainTextToken;
-
-        $response = [
-            'user' => "$user->username already logged in",
-            'token' => $token
-        ];
-
-        return response($response, 201);
     }
+
 
     public function logout(Request $request)
     {
