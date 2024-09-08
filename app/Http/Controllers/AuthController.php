@@ -16,13 +16,10 @@ class AuthController extends Controller
         }
 
         try {
-            $role = Role::where('role_name', 'customer')->first();
-
-            if (!$role) {
+            $defaultRole = Role::where('role_name', 'customer')->first();
+            if (!$defaultRole) {
                 return response(['message' => 'Customer role not found.'], 404);
             }
-
-            $defaultRole = Role::where('role_name', 'customer')->firstorFail();
 
             $fields = $request->validate([
                 'fullname' => 'required|string',
