@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Route::bind('role', function ($value) {
-            return Role::where('uid', $value)->firstOrFail();
+        Route::bind('role_uid', function ($value) {
+            return Role::where('uid', $value)->first();
         });
     }
 }
