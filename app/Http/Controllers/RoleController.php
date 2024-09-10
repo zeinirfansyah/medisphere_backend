@@ -12,24 +12,28 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Role::query();
+        try {
+            $query = Role::query();
 
-        if ($request->has('search')) {
-            $search = $request->input('search');
+            if ($request->has('search')) {
+                $search = $request->input('search');
 
-            $query->where('role_name', 'like', "%{$search}%");
+                $query->where('role_name', 'like', "%{$search}%");
+            }
+
+            $per_page = $request->input('per_page', 2);
+            $roles = $query->paginate($per_page);
+
+            $response = [
+                'message' => 'success',
+                'status_code' => 200,
+                'data' => $roles
+            ];
+
+            return response($response, 200);
+        } catch (\Exception $e) {
+            return response(['message' => $e->getMessage()], 500);
         }
-
-        $per_page = $request->input('per_page', 2);
-        $roles = $query->paginate($per_page);
-
-        $response = [
-            'message' => 'success',
-            'status_code' => 200,
-            'data' => $roles
-        ];
-
-        return response($response, 200);
     }
 
     /**
@@ -37,17 +41,21 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $fields = $request->validate([
-            'role_name' => 'required|string|unique:roles,role_name',
-        ]);
+        try {
+            $fields = $request->validate([
+                'role_name' => 'required|string|unique:roles,role_name',
+            ]);
 
-        $role = Role::create($fields);
+            $role = Role::create($fields);
 
-        return response([
-            'message' => 'Role created successfully',
-            'status_code' => 201,
-            'data' => $role
-        ], 201);
+            return response([
+                'message' => 'Role created successfully',
+                'status_code' => 201,
+                'data' => $role
+            ], 201);
+        } catch (\Exception $e) {
+            return response(['message' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -55,7 +63,15 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return $role;
+        try {
+            return response([
+                'message' => 'success',
+                'status_code' => 200,
+                'data' => $role
+            ], 200);
+        } catch (\Exception $e) {
+            return response(['message' => $e->getMessage()], 500);
+        }
     }
 
     /**
